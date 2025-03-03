@@ -28,7 +28,6 @@ html, body {
 
     background-color: black;
     border-width: 0px;
-
 }
 
 #frame-overlay {
@@ -44,7 +43,7 @@ html, body {
     align-items: center;
 
     background-color: #666666;
-    opacity: 70%;
+    opacity: 100%;
 }
 
 #level-title {
@@ -54,6 +53,8 @@ html, body {
     position: relative;
     bottom: 0%;
     transition-duration: 0.4s;
+    cursor: default;
+    user-select: none;
 }
 
 button {
@@ -90,6 +91,7 @@ button {
     </body>
     <script>
 
+var running = false;
 var paused = true;
 var frame = document.getElementById("frame");
 var gameframe = document.getElementById("game-iframe");
@@ -114,18 +116,25 @@ function togglePause()
         frame.style.width = "calc(100% - 100px)";
         frame.style.height = "calc(100vh - 70px)";
 
-        frameoverlay.style.opacity = "70%";
+        frameoverlay.style.backgroundColor = "#666666bd";
+        frameoverlay.style.opacity = "100%";
         frameoverlay.style.pointerEvents = "auto";
 
         document.getElementById("level-title").style.bottom = "0%";
     }
     else
     {
+        if (!running)
+        {
+            running = true;
+            gameframe.src = pages[pageNumber];
+        }
         frame.style.top = "0px";
         frame.style.left = "0px";
         frame.style.width = "100%";
         frame.style.height = "100vh";
 
+        frameoverlay.style.backgroundColor = "#66666600";
         frameoverlay.style.opacity = "0%";
         frameoverlay.style.pointerEvents = "none";
 
@@ -137,7 +146,8 @@ function changePage(newPage)
 {
     window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
     pageNumber = (newPage + 4) % 4;
-    gameframe.src = pages[pageNumber];
+    running = false;
+    gameframe.src = "";
     document.title = "Page " + (pageNumber + 1) + " | Frame";
 }
 
@@ -153,7 +163,7 @@ function previousPage()
 
 function detectPause(e)
 {
-    if (e.key === "Escape") {
+    if (running && e.key === "Escape") {
         togglePause();
     }
 }
