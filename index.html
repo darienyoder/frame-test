@@ -114,8 +114,7 @@ function changePage(newPage)
 {
     pageNumber = (newPage + 4) % 4;
     gameframe.src = "frames/" + (pageNumber + 1) + ".html";
-    window.history.pushState({id : "100"}, "Page " + (pageNumber + 1), "/frame-test/" + (pageNumber + 1) + " | Frame");
-    document.title = "Page " + (pageNumber + 1) + " | Frame";
+    window.history.pushState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
 }
 
 function nextPage()
