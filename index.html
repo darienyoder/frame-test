@@ -78,10 +78,6 @@ function changePage(newPage)
 {
     pageNumber = newPage % 4;
     frame.src = "frames/" + (pageNumber + 1) + ".html";
-
-    frame.contentWindow.addEventListener("click", event => {
-        paused = !paused;
-    });
 }
 
 function nextPage()
@@ -96,6 +92,38 @@ function previousPage()
 
 changePage(0)
 setInterval(updatePause, 33);
+
+
+let myVariable = 0;
+
+// Function to handle mouse clicks in the iframe
+function handleIframeClick(event) {
+    // Update the variable or perform any action
+    myVariable++;
+    console.log("Iframe clicked! Variable updated to:", myVariable);
+}
+
+// Function to add the click event listener to the iframe
+function addIframeClickListener() {
+    const iframe = document.getElementById('frame');
+    const iframeDocument = iframe.contentWindow.document;
+
+    // Remove any existing click listener to avoid duplicates
+    iframeDocument.removeEventListener('click', handleIframeClick);
+    iframeDocument.addEventListener('click', handleIframeClick);
+}
+
+// Set up the load event listener for the iframe
+function setupIframe() {
+    const iframe = document.getElementById('frame');
+    iframe.onload = function() {
+        addIframeClickListener(); // Add the click listener when the iframe loads
+    };
+}
+
+// Call setupIframe on page load
+window.onload = setupIframe;
+
 
     </script>
 </html>
