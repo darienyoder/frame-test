@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+
+html, body {
+    margin: 0px;
+    font-family: sans-serif;
+}
+
+#frame {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    transition-duration: 0.4s;
+
+
+    background-color: red;
+    border-width: 0px;
+}
+
+#level-title {
+    margin: 0px;
+    font-size: 40px;
+    text-align: center;
+    position: relative;
+    bottom: 100%;
+    transition-duration: 0.4s;
+}
+
+button {
+    position: relative;
+    height: 100%;
+    font-size: 20px;
+    margin: 10px;
+}
+
+        </style>
+    </head>
+    <body>
+        <h1 id="level-title"><button>Previous</button><span>Level Title</span><button>Next</button></h1>
+        <iframe id="frame" src="frame.html" title="Frame"></iframe>
+    </body>
+    <script>
+
+var paused = false;
+var frame = document.getElementById("frame");
+
+function updatePause()
+{
+    paused = frame.contentWindow.paused
+    if (paused)
+    {
+        frame.style.top = "50px";
+        frame.style.left = "50px";
+        frame.style.width = "calc(100% - 100px)";
+        frame.style.height = "calc(100vh - 70px)";
+
+        document.getElementById("level-title").style.bottom = "0%";
+    }
+    else
+    {
+        frame.style.top = "0px";
+        frame.style.left = "0px";
+        frame.style.width = "100%";
+        frame.style.height = "100vh";
+
+        document.getElementById("level-title").style.bottom = "100%";
+    }
+}
+
+setInterval(updatePause, 33);
+
+    </script>
+</html>
