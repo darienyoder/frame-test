@@ -17,9 +17,27 @@ html, body {
     width: 100%;
     height: 100vh;
     transition-duration: 0.4s;
+}
 
+#game-iframe {
     background-color: black;
     border-width: 0px;
+}
+
+#frame-overlay {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    transition-duration: 0.4s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #cccccc;
+    opacity: 50%;
 }
 
 #level-title {
@@ -42,12 +60,17 @@ button {
     </head>
     <body>
         <h1 id="level-title"><button onclick="previousPage()">Previous</button><span>Level Title</span><button onclick="nextPage()">Next</button></h1>
-        <iframe id="frame" src="" title="Frame" onload="enablePause();"></iframe>
+        <div id="frame">
+            <iframe id="game-iframe" src="" title="Frame" onload="enablePause();"></iframe>
+            <div id="frame-overlay"></div>
+        </div>
     </body>
     <script>
 
 var paused = false;
 var frame = document.getElementById("frame");
+var gameframe = document.getElementById("game-iframe");
+var frameoverlay = document.getElementById("frame-overlay");
 var pageNumber = 0;
 
 function togglePause()
@@ -61,6 +84,8 @@ function togglePause()
         frame.style.width = "calc(100% - 100px)";
         frame.style.height = "calc(100vh - 70px)";
 
+        frameoverlay.style.opacity = "50%";
+
         document.getElementById("level-title").style.bottom = "0%";
     }
     else
@@ -70,14 +95,16 @@ function togglePause()
         frame.style.width = "100%";
         frame.style.height = "100vh";
 
+        frameoverlay.style.opacity = "0%";
+
         document.getElementById("level-title").style.bottom = "100%";
     }
 }
 
 function changePage(newPage)
 {
-    pageNumber = newPage % 4;
-    frame.src = "frames/" + (pageNumber + 1) + ".html";
+    pageNumber = (newPage + 4) % 4;
+    gameframe.src = "frames/" + (pageNumber + 1) + ".html";
 }
 
 function nextPage()
@@ -92,11 +119,9 @@ function previousPage()
 
 function enablePause()
 {
-    frame.contentWindow.removeEventListener('click', togglePause);
-    frame.contentWindow.addEventListener('click', togglePause);
+    gameframe.contentWindow.removeEventListener('click', togglePause);
+    gameframe.contentWindow.addEventListener('click', togglePause);
 }
-
-changePage(0);
 
     </script>
 </html>
