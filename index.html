@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Frame</title>
         <style>
 
 html, body {
@@ -114,7 +114,8 @@ function changePage(newPage)
 {
     pageNumber = (newPage + 4) % 4;
     gameframe.src = "frames/" + (pageNumber + 1) + ".html";
-    location.href = "https://darienyoder.com/frame-test/" + (pageNumber + 1);
+    window.history.pushState({id : "100"}, "Page " + (pageNumber + 1), "/frame-test/" + (pageNumber + 1) + " | Frame");
+    document.title = "Page " + (pageNumber + 1) + " | Frame";
 }
 
 function nextPage()
