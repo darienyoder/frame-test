@@ -77,7 +77,11 @@ function updatePause()
 function changePage(newPage)
 {
     pageNumber = newPage % 4;
-    frame.src = "frames/" + (newPage + 1) + ".html";
+    frame.src = "frames/" + (pageNumber + 1) + ".html";
+
+    frame.contentWindow.addEventListener("click", event => {
+        paused = !paused;
+    });
 }
 
 function nextPage()
