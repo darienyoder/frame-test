@@ -43,10 +43,8 @@ html, body {
     justify-content: center;
     align-items: center;
 
-    background-color: #cccccc;
-    opacity: 50%;
-
-    pointer-events: none;
+    background-color: #666666;
+    opacity: 70%;
 }
 
 #level-title {
@@ -65,13 +63,29 @@ button {
     margin: 10px;
 }
 
+.play-button {
+    aspect-ratio: 1/1;
+    width: 200px;
+    background-color: white;
+    border-radius: 100%;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.play-button:hover {
+    transform: scale(1.05);
+}
+
         </style>
     </head>
     <body>
         <h1 id="level-title"><button onclick="previousPage()">Previous</button><span>Level Title</span><button onclick="nextPage()">Next</button></h1>
         <div id="frame">
             <iframe id="game-iframe" src="" title="Frame" onload="enablePause();"></iframe>
-            <div id="frame-overlay"></div>
+            <div id="frame-overlay">
+                <div class="play-button" onclick="togglePause();">
+                </div>
+            </div>
         </div>
     </body>
     <script>
@@ -93,7 +107,8 @@ function togglePause()
         frame.style.width = "calc(100% - 100px)";
         frame.style.height = "calc(100vh - 70px)";
 
-        frameoverlay.style.opacity = "50%";
+        frameoverlay.style.opacity = "70%";
+        frameoverlay.style.pointerEvents = "auto";
 
         document.getElementById("level-title").style.bottom = "0%";
     }
@@ -105,6 +120,7 @@ function togglePause()
         frame.style.height = "100vh";
 
         frameoverlay.style.opacity = "0%";
+        frameoverlay.style.pointerEvents = "none";
 
         document.getElementById("level-title").style.bottom = "100%";
     }
