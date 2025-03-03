@@ -106,7 +106,7 @@ function handleIframeClick(event) {
 // Function to add the click event listener to the iframe
 function addIframeClickListener() {
     const iframe = document.getElementById('frame');
-    const iframeDocument = iframe.contentWindow.document;
+    const iframeDocument = iframe.contentWindow;
 
     // Remove any existing click listener to avoid duplicates
     iframeDocument.removeEventListener('click', handleIframeClick);
