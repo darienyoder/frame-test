@@ -70,7 +70,7 @@ button {
 .play-button {
     aspect-ratio: 1/1;
     width: 200px;
-    background-color: white;
+    background-color: #ffffffa0;
     border-radius: 100%;
     transition-duration: 0.2s;
     cursor: pointer;
@@ -160,7 +160,7 @@ function changePage(newPage)
     running = false;
     gameframe.src = "";
     document.title = "Page " + (pageNumber + 1) + " | Frame";
-    frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(" + coverImages[pageNumber] + ")";
+    frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(" + coverImages[pageNumber] + ")";
 }
 
 function nextPage()
