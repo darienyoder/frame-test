@@ -144,11 +144,20 @@ function previousPage()
     changePage(pageNumber - 1);
 }
 
+function detectPause(e)
+{
+    if (e.key === "Escape") {
+        togglePause();
+    }
+}
+
 function enablePause()
 {
-    gameframe.contentWindow.removeEventListener('click', togglePause);
-    gameframe.contentWindow.addEventListener('click', togglePause);
+    gameframe.contentWindow.removeEventListener('keydown', detectPause);
+    gameframe.contentWindow.addEventListener('keydown', detectPause);
 }
+
+addEventListener('keydown', detectPause);
 
     </script>
 </html>
