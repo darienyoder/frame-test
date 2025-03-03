@@ -112,9 +112,9 @@ function togglePause()
 
 function changePage(newPage)
 {
+    window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
     pageNumber = (newPage + 4) % 4;
     gameframe.src = "frames/" + (pageNumber + 1) + ".html";
-    window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
     document.title = "Page " + (pageNumber + 1) + " | Frame";
 }
 
