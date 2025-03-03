@@ -96,6 +96,13 @@ var gameframe = document.getElementById("game-iframe");
 var frameoverlay = document.getElementById("frame-overlay");
 var pageNumber = 0;
 
+const pages = [
+    "/",
+    "/software-engineering-team-beta/minigolf",
+    "/crossword-builder",
+    "/mood9",
+]
+
 function togglePause()
 {
     paused = !paused;
@@ -130,7 +137,7 @@ function changePage(newPage)
 {
     window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
     pageNumber = (newPage + 4) % 4;
-    gameframe.src = "frames/" + (pageNumber + 1) + ".html";
+    gameframe.src = pages[pageNumber];
     document.title = "Page " + (pageNumber + 1) + " | Frame";
 }
 
