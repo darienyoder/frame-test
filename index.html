@@ -42,7 +42,7 @@ button {
     </head>
     <body>
         <h1 id="level-title"><button onclick="previousPage()">Previous</button><span>Level Title</span><button onclick="nextPage()">Next</button></h1>
-        <iframe id="frame" src="" title="Frame"></iframe>
+        <iframe id="frame" src="" title="Frame" onload="enablePause();"></iframe>
     </body>
     <script>
 
@@ -52,7 +52,7 @@ var pageNumber = 0;
 
 function updatePause()
 {
-    paused = frame.contentWindow.paused;
+    paused = !paused;
 
     if (paused)
     {
@@ -90,40 +90,14 @@ function previousPage()
     changePage(pageNumber - 1);
 }
 
+function enablePause()
+{
+    frame.contentWindow.removeEventListener('click', togglePause);
+    frame.contentWindow.addEventListener('click', togglePause);
+}
+
 changePage(0)
 setInterval(updatePause, 33);
-
-
-let myVariable = 0;
-
-// Function to handle mouse clicks in the iframe
-function handleIframeClick(event) {
-    // Update the variable or perform any action
-    myVariable++;
-    console.log("Iframe clicked! Variable updated to:", myVariable);
-}
-
-// Function to add the click event listener to the iframe
-function addIframeClickListener() {
-    const iframe = document.getElementById('frame');
-    const iframeDocument = iframe.contentWindow;
-
-    // Remove any existing click listener to avoid duplicates
-    iframeDocument.removeEventListener('click', handleIframeClick);
-    iframeDocument.addEventListener('click', handleIframeClick);
-}
-
-// Set up the load event listener for the iframe
-function setupIframe() {
-    const iframe = document.getElementById('frame');
-    iframe.onload = function() {
-        addIframeClickListener(); // Add the click listener when the iframe loads
-    };
-}
-
-// Call setupIframe on page load
-window.onload = setupIframe;
-
 
     </script>
 </html>
