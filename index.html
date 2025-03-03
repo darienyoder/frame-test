@@ -114,6 +114,7 @@ function changePage(newPage)
 {
     pageNumber = (newPage + 4) % 4;
     gameframe.src = "frames/" + (pageNumber + 1) + ".html";
+    location.href = "https://darienyoder.com/frame-test/" + (pageNumber + 1);
 }
 
 function nextPage()
