@@ -102,7 +102,7 @@ button {
         </style>
     </head>
     <body>
-        <h1 id="level-title"><button onclick="firstPage()"><<</button><button onclick="previousPage()"><</button><span>Level Title</span><button onclick="nextPage()">></button><button onclick="lastPage()">>></button></h1>
+        <h1 id="level-title"><button id="firstButton" onclick="firstPage()"><<</button><button id="previousButton" onclick="previousPage()"><</button><span>Level Title</span><button id="nextButton" onclick="nextPage()">></button><button id="lastButton" onclick="lastPage()">>></button></h1>
         <div id="frame">
             <iframe id="game-iframe" src="" title="Frame" onload="enablePause();"></iframe>
             <div id="frame-overlay">
@@ -133,6 +133,8 @@ const coverImages = [
     "https://wallpaper-house.com/data/out/6/wallpaper2you_103955.jpg",
     "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.kittyloaf.com%2Fwp-content%2Fuploads%2F2017%2F06%2FValentine_KittyLoaf_071417-375x375.png",
 ]
+
+var finalPage = pages.length - 1;
 
 function togglePause()
 {
@@ -189,11 +191,16 @@ function togglePause()
 function changePage(newPage)
 {
     window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
-    pageNumber = (newPage + 4) % 4;
+    pageNumber = newPage;
     running = false;
     gameframe.src = "";
     document.title = "Page " + (pageNumber + 1) + " | Frame";
     frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(" + coverImages[pageNumber] + ")";
+
+    document.getElementById("firstButton").disabled = pageNumber == 0;
+    document.getElementById("previousButton").disabled = pageNumber == 0;
+    document.getElementById("nextButton").disabled = pageNumber == finalPage;
+    document.getElementById("lastButton").disabled = pageNumber == finalPage;
 }
 
 function firstPage()
@@ -203,7 +210,7 @@ function firstPage()
 
 function lastPage()
 {
-    changePage(pages.length - 1);
+    changePage(finalPage);
 }
 
 function nextPage()
