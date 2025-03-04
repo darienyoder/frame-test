@@ -66,6 +66,10 @@ html, body {
 
     background-color: white;
     height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 button {
@@ -91,7 +95,7 @@ button {
         </style>
     </head>
     <body>
-        <h1 id="level-title"><button onclick="previousPage()">Previous</button><span>Level Title</span><button onclick="nextPage()">Next</button></h1>
+        <h1 id="level-title"><button onclick="firstPage()">Previous</button><button onclick="previousPage()">Previous</button><span>Level Title</span><button onclick="nextPage()">Next</button><button onclick="lastPage()">Next</button></h1>
         <div id="frame">
             <iframe id="game-iframe" src="" title="Frame" onload="enablePause();"></iframe>
             <div id="frame-overlay">
@@ -142,8 +146,8 @@ function togglePause()
         frame.style.borderLeft = "5px solid white";
         frame.style.borderRight = "5px solid white";
 
-        frame.style.borderRadius = "0px 0px 15px 15px";
-        frameoverlay.style.borderRadius = "0px 0px 20px 20px";
+        // frame.style.borderRadius = "0px 0px 10px 15px";
+        // frameoverlay.style.borderRadius = "0px 0px 20px 20px";
 
         document.getElementById("level-title").style.bottom = "0%";
     }
@@ -168,8 +172,8 @@ function togglePause()
         frame.style.borderLeft = "0px solid white";
         frame.style.borderRight = "0px solid white";
 
-        frame.style.borderRadius = "";
-        frameoverlay.style.borderRadius = "";
+        // frame.style.borderRadius = "";
+        // frameoverlay.style.borderRadius = "";
 
         document.getElementById("level-title").style.bottom = "100%";
     }
@@ -183,6 +187,16 @@ function changePage(newPage)
     gameframe.src = "";
     document.title = "Page " + (pageNumber + 1) + " | Frame";
     frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(" + coverImages[pageNumber] + ")";
+}
+
+function firstPage()
+{
+    changePage(0);
+}
+
+function lastPage()
+{
+    changePage(0);
 }
 
 function nextPage()
