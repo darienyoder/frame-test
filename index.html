@@ -22,6 +22,7 @@ html, body {
     border-bottom: 5px solid white;
     border-left: 5px solid white;
     border-right: 5px solid white;
+    overflow: hidden;
 }
 
 #game-iframe {
@@ -33,6 +34,7 @@ html, body {
 
     background-color: black;
     border-width: 0px;
+    overflow: hidden;
 }
 
 #frame-overlay {
@@ -52,6 +54,8 @@ html, body {
 
     background-size: cover;
     background-position: center;
+
+    overflow: hidden;
 }
 
 #level-title {
@@ -95,7 +99,7 @@ button {
         </style>
     </head>
     <body>
-        <h1 id="level-title"><button onclick="firstPage()">Previous</button><button onclick="previousPage()">Previous</button><span>Level Title</span><button onclick="nextPage()">Next</button><button onclick="lastPage()">Next</button></h1>
+        <h1 id="level-title"><button onclick="firstPage()">First</button><button onclick="previousPage()">Previous</button><span>Level Title</span><button onclick="nextPage()">Next</button><button onclick="lastPage()">Last</button></h1>
         <div id="frame">
             <iframe id="game-iframe" src="" title="Frame" onload="enablePause();"></iframe>
             <div id="frame-overlay">
@@ -196,7 +200,7 @@ function firstPage()
 
 function lastPage()
 {
-    changePage(0);
+    changePage();
 }
 
 function nextPage()
