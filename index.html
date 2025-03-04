@@ -203,7 +203,7 @@ function firstPage()
 
 function lastPage()
 {
-    changePage();
+    changePage(pages.length - 1);
 }
 
 function nextPage()
@@ -230,6 +230,7 @@ function enablePause()
 }
 
 addEventListener('keydown', detectPause);
+changePage(0);
 
     </script>
 </html>
