@@ -14,10 +14,10 @@ const pages = [
 ]
 
 const coverImages = [
-    "https://wallpapers.com/images/featured/cat-pictures-zc3gu0636kmldm04.jpg",
+    "https://darienyoder.com/assets/images/headers/falling-sand.png",
     "https://darienyoder.com/assets/images/headers/minigolf.png",
-    "https://wallpaper-house.com/data/out/6/wallpaper2you_103955.jpg",
-    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.kittyloaf.com%2Fwp-content%2Fuploads%2F2017%2F06%2FValentine_KittyLoaf_071417-375x375.png",
+    "https://darienyoder.com/assets/images/headers/crossword-builder.png",
+    "https://darienyoder.com/assets/images/headers/destroydog.png",
 ]
 
 var finalPage = pages.length - 1;
