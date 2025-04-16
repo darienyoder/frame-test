@@ -11,9 +11,12 @@
         <div id="frame">
             <iframe id="game-iframe" class="parent-size" src="" title="Frame" onload="enablePause();"></iframe>
             <div id="frame-overlay" class="parent-size flex-center">
-                <!-- <div class="play-button" onclick="togglePause();"></div> -->
 
-                <div style="font-family:serif; color:white; font-size: 200%; margin: 20px;">
+                <div id="level-page" class="parent-size flex-center">
+                    <div class="play-button" onclick="togglePause();"></div>
+                </div>
+
+                <div id="home-page" style="font-family:serif; color:white; font-size: 200%; margin: 20px;">
                     <h1>Welcome to Title</h1>
                     <p>
                         This is a story told through weekly interactive installments. Think of it like a webcomic that you can play.
@@ -26,6 +29,7 @@
                         <button onclick="lastPage();">Latest Entry</button>
                     </div>
                 </div>
+
             </div>
         </div>
     </body>

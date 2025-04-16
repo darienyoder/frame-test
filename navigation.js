@@ -87,6 +87,15 @@ function changePage(newPage)
     document.getElementById("previousButton").disabled = pageNumber <= 0;
     document.getElementById("nextButton").disabled = pageNumber >= finalPage;
     document.getElementById("lastButton").disabled = pageNumber == finalPage;
+
+    document.getElementById("level-page").style.display = "";
+    document.getElementById("home-page").style.display = "none";
+}
+
+function homePage()
+{
+    document.getElementById("level-page").style.display = "none";
+    document.getElementById("home-page").style.display = "";
 }
 
 function firstPage()
