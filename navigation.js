@@ -76,8 +76,9 @@ function togglePause()
 
 function changePage(newPage)
 {
-    window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
     pageNumber = newPage;
+    window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
+    
     running = false;
     gameframe.src = "";
     document.title = "Page " + (pageNumber + 1) + " | Frame";
