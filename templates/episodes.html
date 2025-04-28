@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Episodes | Frame</title>
+        <!-- <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}"> -->
+        <!-- <script src="{{url_for('static', filename='navigation.js')}}"></script> -->
+    </head>
+    <body>
+        <h1>Episodes!</h1>
+        {% for episode in episode_list %}
+            <div>
+                <img src="{{ episode.thumbnail }}">
+                <a href="/{{ episode.index }}">{{ episode.title }}</a>
+            </div>
+        {% endfor %}
+    </body>
+</html>
