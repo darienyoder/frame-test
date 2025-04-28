@@ -7,13 +7,24 @@
         <script src="{{url_for('static', filename='navigation.js')}}"></script>
     </head>
     <body onload="main(); changePage( {{page_number}} );">
-        <h1 id="level-title"><button id="firstButton" class="nav-button" onclick="firstPage()"><<</button><button id="previousButton" class="nav-button" onclick="previousPage()"><</button><span>Page Title</span><button id="nextButton" class="nav-button" onclick="nextPage()">></button><button id="lastButton" class="nav-button" onclick="lastPage()">>></button></h1>
+        <h1 id="level-title"><button id="firstButton" class="nav-button" onclick="firstPage()"><<</button><button id="previousButton" class="nav-button" onclick="previousPage()"><</button><span id="title-text">Page Title</span><button id="nextButton" class="nav-button" onclick="nextPage()">></button><button id="lastButton" class="nav-button" onclick="lastPage()">>></button></h1>
         <div id="frame">
-            <iframe id="game-iframe" class="parent-size" src="" title="Frame"></iframe>
+            <iframe id="game-iframe" class="parent-size" src="" onload="if (!this.src.includes('null')) { togglePause(); }" title="Frame"></iframe>
             <div id="frame-overlay" class="parent-size flex-center">
 
                 <div id="level-page" class="parent-size flex-center">
-                    <div class="play-button" onclick="togglePause();"></div>
+                    <div class="flex-row">
+                        <div></div>
+
+                        <div id="play-button" class="play-button center-flex" onclick="startLevel();"><svg style="height: 120px; width: 120px; margin-left: 20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div>
+                        <div id="pause-menu" class="flex-column" style="display:none;">
+                            <!-- <p>Paused</p> -->
+                            <button onclick="togglePause();">Continue</button>
+                            <button onclick="changePage(pageNumber); togglePause();">Restart</button>
+                        </div>
+
+                        <div></div>
+                    </div>
                 </div>
 
                 <div id="home-page" style="font-family:serif; color:white; font-size: 200%; margin: 20px;">

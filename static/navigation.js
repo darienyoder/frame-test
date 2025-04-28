@@ -5,6 +5,7 @@ var pageNumber = -1;
 var frame;
 var gameframe;
 var frameoverlay;
+var queuedLevel = "";
 
 function main()
 {
@@ -13,22 +14,7 @@ function main()
     frameoverlay = document.getElementById("frame-overlay");
 }
 
-
-const pages = [
-    "https://darienyoder.com/",
-    "https://darienyoder.com/software-engineering-team-beta/minigolf",
-    "https://darienyoder.com/crossword-builder",
-    "https://darienyoder.com/mood9",
-]
-
-const coverImages = [
-    "https://darienyoder.com/assets/images/headers/falling-sand.png",
-    "https://darienyoder.com/assets/images/headers/minigolf.png",
-    "https://darienyoder.com/assets/images/headers/crossword-builder.png",
-    "https://darienyoder.com/assets/images/headers/destroydog.png",
-]
-
-var finalPage = pages.length - 1;
+var finalPage = 2;
 
 function togglePause()
 {
@@ -59,13 +45,14 @@ function togglePause()
         if (!running)
         {
             running = true;
-            gameframe.src = pages[pageNumber];
             frameoverlay.style.backgroundImage = "";
+            document.getElementById("play-button").style.display = "none";
+            document.getElementById("pause-menu").style.display = "flex";
         }
-        frame.style.top = "0px";
-        frame.style.left = "0px";
-        frame.style.width = "100%";
-        frame.style.height = "100vh";
+        // frame.style.top = "0px";
+        // frame.style.left = "0px";
+        // frame.style.width = "100%";
+        // frame.style.height = "100vh";
 
         frameoverlay.style.backgroundColor = "#66666600";
         frameoverlay.style.opacity = "0%";
@@ -82,26 +69,43 @@ function togglePause()
     }
 }
 
-function changePage(newPage)
+async function changePage(newPage)
 {
-    if (newPage == -1)
+    if (newPage == 0)
     {
         homePage();
         return;
     }
 
     pageNumber = newPage;
-    window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/" + (pageNumber + 1));
+    document.getElementById("play-button").style.display = "";
+    document.getElementById("pause-menu").style.display = "none";
     
-    running = false;
-    gameframe.src = "";
-    document.title = "Page " + (pageNumber + 1) + " | Frame";
-    frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(" + coverImages[pageNumber] + ")";
+    
+    const response = await fetch("/episodes/" + pageNumber + "/info.json");
+    let info;
+    if (!response.ok)
+    {
+        info = {"title": "No Title"};
+    }
+    else
+    {
+        info = await response.json();
+    }
 
-    document.getElementById("firstButton").disabled = pageNumber == 0;
-    document.getElementById("previousButton").disabled = pageNumber <= 0;
-    document.getElementById("nextButton").disabled = pageNumber >= finalPage;
-    document.getElementById("lastButton").disabled = pageNumber == finalPage;
+    window.history.replaceState({id : "100"}, "Page " + (pageNumber) + " | Frame", "/" + (pageNumber));
+    running = false;
+    paused = true;
+    gameframe.src = "null";
+    queuedLevel = "/episodes/" + (pageNumber) + "/index.html"
+    document.getElementById("title-text").innerText = info.title;
+    document.title = info.title + " | Frame";
+    frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/episodes/" + (pageNumber) + "/thumbnail.png)";
+
+    document.getElementById("firstButton").disabled = pageNumber == 1 || pageNumber == 0;
+    document.getElementById("previousButton").disabled = pageNumber <= 1 || pageNumber == 0;
+    document.getElementById("nextButton").disabled = pageNumber >= finalPage || pageNumber == 0;
+    document.getElementById("lastButton").disabled = pageNumber == finalPage || pageNumber == 0;
 
     document.getElementById("level-page").style.display = "";
     document.getElementById("home-page").style.display = "none";
@@ -111,11 +115,16 @@ function homePage()
 {
     document.getElementById("level-page").style.display = "none";
     document.getElementById("home-page").style.display = "";
+
+    document.getElementById("firstButton").disabled = true;
+    document.getElementById("previousButton").disabled = true;
+    document.getElementById("nextButton").disabled = true;
+    document.getElementById("lastButton").disabled = true;
 }
 
 function firstPage()
 {
-    changePage(0);
+    changePage(1);
 }
 
 function lastPage()
@@ -144,6 +153,11 @@ function enablePause()
 {
     gameframe.contentWindow.removeEventListener('keydown', detectPause);
     gameframe.contentWindow.addEventListener('keydown', detectPause);
+}
+
+function startLevel()
+{
+    gameframe.src = queuedLevel;
 }
 
 addEventListener('keydown', detectPause);

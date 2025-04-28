@@ -131,3 +131,14 @@ button:disabled {
 .play-button:hover {
     transform: scale(1.05);
 }
+
+#pause-menu {
+    background-color: #ffffffa0;
+    padding: 20px;
+    text-align: center;
+    gap: 20px;
+}
+
+#pause-menu button {
+    font-size: 40px;
+}
