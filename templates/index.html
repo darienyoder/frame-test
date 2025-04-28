@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Frame</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+        <script src="{{url_for('static', filename='navigation.js')}}"></script>
+    </head>
+    <body onload="main(); changePage( {{page_number}} );">
+        <h1 id="level-title"><button id="firstButton" class="nav-button" onclick="firstPage()"><<</button><button id="previousButton" class="nav-button" onclick="previousPage()"><</button><span>Page Title</span><button id="nextButton" class="nav-button" onclick="nextPage()">></button><button id="lastButton" class="nav-button" onclick="lastPage()">>></button></h1>
+        <div id="frame">
+            <iframe id="game-iframe" class="parent-size" src="" title="Frame"></iframe>
+            <div id="frame-overlay" class="parent-size flex-center">
+
+                <div id="level-page" class="parent-size flex-center">
+                    <div class="play-button" onclick="togglePause();"></div>
+                </div>
+
+                <div id="home-page" style="font-family:serif; color:white; font-size: 200%; margin: 20px;">
+                    <h1>Welcome to Title</h1>
+                    <p>
+                        This is a story told through weekly interactive installments. Think of it like a webcomic that you can play.
+                    </p>
+                    <p>
+                        If you're new here, I recommend starting at the beginning, but feel free to jump in anywhere!
+                    </p>
+                    <div class="row-flex" style="gap: 20px;">
+                        <button onclick="firstPage();">Start at the beginning</button>
+                        <button onclick="lastPage();">Latest Entry</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,16 +1,24 @@
 
 var running = false;
 var paused = true;
-var frame = document.getElementById("frame");
-var gameframe = document.getElementById("game-iframe");
-var frameoverlay = document.getElementById("frame-overlay");
 var pageNumber = -1;
+var frame;
+var gameframe;
+var frameoverlay;
+
+function main()
+{
+    frame = document.getElementById("frame");
+    gameframe = document.getElementById("game-iframe");
+    frameoverlay = document.getElementById("frame-overlay");
+}
+
 
 const pages = [
-    "/",
-    "/software-engineering-team-beta/minigolf",
-    "/crossword-builder",
-    "/mood9",
+    "https://darienyoder.com/",
+    "https://darienyoder.com/software-engineering-team-beta/minigolf",
+    "https://darienyoder.com/crossword-builder",
+    "https://darienyoder.com/mood9",
 ]
 
 const coverImages = [
@@ -76,8 +84,14 @@ function togglePause()
 
 function changePage(newPage)
 {
+    if (newPage == -1)
+    {
+        homePage();
+        return;
+    }
+
     pageNumber = newPage;
-    window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/frame-test/" + (pageNumber + 1));
+    window.history.replaceState({id : "100"}, "Page " + (pageNumber + 1) + " | Frame", "/" + (pageNumber + 1));
     
     running = false;
     gameframe.src = "";
@@ -133,4 +147,3 @@ function enablePause()
 }
 
 addEventListener('keydown', detectPause);
-homePage();
