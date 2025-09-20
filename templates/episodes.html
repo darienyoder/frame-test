@@ -3,16 +3,24 @@
     <head>
         <meta charset="utf-8">
         <title>Episodes | Frame</title>
-        <!-- <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}"> -->
+        <link rel="stylesheet" href="episodes.css">
         <!-- <script src="{{url_for('static', filename='navigation.js')}}"></script> -->
     </head>
     <body>
-        <h1>Episodes!</h1>
-        {% for episode in episode_list %}
-            <div>
-                <img src="{{ episode.thumbnail }}">
-                <a href="/{{ episode.index }}">{{ episode.title }}</a>
-            </div>
-        {% endfor %}
+        
+        <div style="background-color: white; color: black; text-align: center;">
+            <h1 style="margin: 0px; font-size: 40px;">Episodes</h1>
+        </div>
+
+        <div class="column-flex" style="width: 70%; min-width: 700px; margin-inline: auto;">
+            {% for episode in episode_list %}
+            <a class="row-flex" href="/{{ episode.index }}" style="color: white; border-bottom: 2px solid white; padding: 20px; text-decoration: none;">
+                <img height="150px" width="267px" src="{{ episode.thumbnail }}" />
+                <div class="center-flex row-flex" style="justify-content: flex-start; margin-left: 10px;">
+                    <h2 style="font-size: 50px; margin: 0px;">{{ episode.title }}</h2>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
     </body>
 </html>

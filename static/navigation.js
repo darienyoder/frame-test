@@ -14,7 +14,7 @@ function main()
     frameoverlay = document.getElementById("frame-overlay");
 }
 
-var finalPage = 2;
+var finalPage = 3;
 
 function togglePause()
 {
@@ -86,7 +86,7 @@ async function changePage(newPage)
     let info;
     if (!response.ok)
     {
-        info = {"title": "No Title"};
+        info = {"title": "No Title", "thumbnail": ""};
     }
     else
     {
@@ -100,12 +100,16 @@ async function changePage(newPage)
     queuedLevel = "/episodes/" + (pageNumber) + "/index.html"
     document.getElementById("title-text").innerText = info.title;
     document.title = info.title + " | Frame";
-    frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/episodes/" + (pageNumber) + "/thumbnail.png)";
 
-    document.getElementById("firstButton").disabled = pageNumber == 1 || pageNumber == 0;
-    document.getElementById("previousButton").disabled = pageNumber <= 1 || pageNumber == 0;
-    document.getElementById("nextButton").disabled = pageNumber >= finalPage || pageNumber == 0;
-    document.getElementById("lastButton").disabled = pageNumber == finalPage || pageNumber == 0;
+    let thumbnail_url = "/episodes/" + (pageNumber) + "/thumbnail.png";
+    if ("thumbnail" in info)
+        thumbnail_url = info.thumbnail;
+    frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(" + thumbnail_url + ")";
+
+    document.getElementById("firstButton").disabled = pageNumber == 1;
+    document.getElementById("previousButton").disabled = pageNumber <= 1;
+    document.getElementById("nextButton").disabled = pageNumber >= finalPage;
+    document.getElementById("lastButton").disabled = pageNumber == finalPage;
 
     document.getElementById("level-page").style.display = "";
     document.getElementById("home-page").style.display = "none";
