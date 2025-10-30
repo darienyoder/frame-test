@@ -22,23 +22,9 @@ function togglePause()
 
     if (paused)
     {
-        frame.style.top = "50px";
-        frame.style.left = "50px";
-        frame.style.width = "calc(100% - 100px)";
-        frame.style.height = "calc(100vh - 70px)";
-
         frameoverlay.style.backgroundColor = "#666666bd";
         frameoverlay.style.opacity = "100%";
         frameoverlay.style.pointerEvents = "auto";
-
-        frame.style.borderBottom = "5px solid white";
-        frame.style.borderLeft = "5px solid white";
-        frame.style.borderRight = "5px solid white";
-
-        // frame.style.borderRadius = "0px 0px 10px 15px";
-        // frameoverlay.style.borderRadius = "0px 0px 20px 20px";
-
-        document.getElementById("level-title").style.bottom = "0%";
     }
     else
     {
@@ -49,23 +35,12 @@ function togglePause()
             document.getElementById("play-button").style.display = "none";
             document.getElementById("pause-menu").style.display = "flex";
         }
-        // frame.style.top = "0px";
-        // frame.style.left = "0px";
-        // frame.style.width = "100%";
-        // frame.style.height = "100vh";
 
         frameoverlay.style.backgroundColor = "#66666600";
         frameoverlay.style.opacity = "0%";
         frameoverlay.style.pointerEvents = "none";
 
-        frame.style.borderBottom = "0px solid white";
-        frame.style.borderLeft = "0px solid white";
-        frame.style.borderRight = "0px solid white";
-
-        // frame.style.borderRadius = "";
-        // frameoverlay.style.borderRadius = "";
-
-        document.getElementById("level-title").style.bottom = "100%";
+        gameframe.contentWindow.document.getElementById("canvas").focus();
     }
 }
 
@@ -106,10 +81,10 @@ async function changePage(newPage)
         thumbnail_url = info.thumbnail;
     frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(" + thumbnail_url + ")";
 
-    document.getElementById("firstButton").disabled = pageNumber == 1;
-    document.getElementById("previousButton").disabled = pageNumber <= 1;
-    document.getElementById("nextButton").disabled = pageNumber >= finalPage;
-    document.getElementById("lastButton").disabled = pageNumber == finalPage;
+    // document.getElementById("firstButton").disabled = pageNumber == 1;
+    // document.getElementById("previousButton").disabled = pageNumber <= 1;
+    // document.getElementById("nextButton").disabled = pageNumber >= finalPage;
+    // document.getElementById("lastButton").disabled = pageNumber == finalPage;
 
     document.getElementById("level-page").style.display = "";
     document.getElementById("home-page").style.display = "none";
@@ -119,11 +94,20 @@ function homePage()
 {
     document.getElementById("level-page").style.display = "none";
     document.getElementById("home-page").style.display = "";
+    document.getElementById("title-text").innerText = "";
+    frameoverlay.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3))";
 
-    document.getElementById("firstButton").disabled = true;
-    document.getElementById("previousButton").disabled = true;
-    document.getElementById("nextButton").disabled = true;
-    document.getElementById("lastButton").disabled = true;
+    running = false;
+    paused = true;
+    gameframe.src = "null";
+
+    window.history.replaceState({id : "100"}, "Frame", "/");
+    document.title = "Frame";
+
+    // document.getElementById("firstButton").disabled = true;
+    // document.getElementById("previousButton").disabled = true;
+    // document.getElementById("nextButton").disabled = true;
+    // document.getElementById("lastButton").disabled = true;
 }
 
 function firstPage()
@@ -138,12 +122,14 @@ function lastPage()
 
 function nextPage()
 {
-    changePage(pageNumber + 1);
+    if (pageNumber != finalPage)
+        changePage(pageNumber + 1);
 }
 
 function previousPage()
 {
-    changePage(pageNumber - 1);
+    if (pageNumber != 1)
+        changePage(pageNumber - 1);
 }
 
 function detectPause(e)
@@ -162,6 +148,20 @@ function enablePause()
 function startLevel()
 {
     gameframe.src = queuedLevel;
+}
+
+function openNav()
+{
+    document.getElementById("nav-panel").style.right = "0%";
+    document.getElementById("nav-background").style.pointerEvents = "all";
+    document.getElementById("nav-background").style.opacity = "50%";
+}
+
+function closeNav()
+{
+    document.getElementById("nav-panel").style.right = "-50%";
+    document.getElementById("nav-background").style.pointerEvents = "none";
+    document.getElementById("nav-background").style.opacity = "0%";
 }
 
 addEventListener('keydown', detectPause);

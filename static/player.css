@@ -50,7 +50,11 @@ html, body {
 
 #frame {
     position: absolute;
-    left: 10vh;
+    top:0px;
+    left:0px;
+    width:100vw;
+    height:100vh;
+    /* left: 10vh;
     top: 50px;
     width: calc(100% - 20vh);
     height: calc(100vh - 50px - 10vh);
@@ -58,7 +62,7 @@ html, body {
 
     border-bottom: 5px solid white;
     border-left: 5px solid white;
-    border-right: 5px solid white;
+    border-right: 5px solid white; */
     overflow: hidden;
 }
 
@@ -76,6 +80,7 @@ html, body {
 
     background-size: cover;
     background-position: center;
+    image-rendering: crisp-edges;
 
     overflow: hidden;
 }
@@ -137,8 +142,87 @@ button:disabled {
     padding: 20px;
     text-align: center;
     gap: 20px;
+    border-radius: 50px;
 }
 
 #pause-menu button {
     font-size: 40px;
+}
+
+.nav-arrow {
+    flex: 1;
+}
+
+.player-button {
+    aspect-ratio: 1;
+    width: 80px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 100%;
+    border: 4px solid white;
+    cursor: pointer;
+    background-color: #9999;
+}
+
+#title-text {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin: 0px;
+    font-size: 80px;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    cursor: default;
+    user-select: none;
+}
+
+#nav-panel {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: -50%;
+    width: 50%;
+    background-color: #222;
+    border-left: solid 1px #444;
+    transition: right 0.5s;
+    overflow-y: auto;
+    display: flex;
+}
+
+#nav-background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    pointer-events: none;
+    background-color: #222;
+    opacity: 0%;
+    transition: opacity 0.5s;
+}
+
+.nav-episode {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid white;
+    height: 120px;
+    color: white;
+    gap: 10px;
+    padding-block: 10px;
+}
+
+.nav-episode h1 {
+    /* height: 100%; */
+    width: 120px;
+    text-align: center;
+    font-size: 50px;
+}
+
+.nav-episode img {
+    height: 100%;
+}
+
+.nav-episode h2 {
+    font-size: 50px;
 }
